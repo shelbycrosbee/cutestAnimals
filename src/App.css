@@ -22,6 +22,12 @@
 .App-link {
   color: #61dafb;
 }
+.buttonColor {
+  background-color: rgb(186, 121, 194);
+}
+.buttonColor:hover{
+  background-color:  rgb(143, 66, 154)
+}
 
 @keyframes App-logo-spin {
   from {
