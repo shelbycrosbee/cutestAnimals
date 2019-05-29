@@ -7,23 +7,6 @@ class Login extends React.Component {
     this.state = {
       username: "",
       password: "",
-      users: [
-        {
-          id: 0,
-          username: "Sara",
-          password: "sara",
-        },
-        {
-          id: 1,
-          username: "Chris",
-          password: "chris",
-        },
-        {
-          id: 2,
-          username: "Shelby",
-          password: "shelby",
-        }
-      ]
     }
   }
 
@@ -36,7 +19,7 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let user = this.state.users.find((user) => {
+    let user = this.props.users.find((user) => {
       if (user.username === this.state.username && user.password === this.state.password) {
         return user;
       }
@@ -44,7 +27,7 @@ class Login extends React.Component {
     if(user){
       this.props.history.push("/")
     } else {
-      alert("user/pass dne")
+      alert("user/pass does not exist")
     }
   }
 

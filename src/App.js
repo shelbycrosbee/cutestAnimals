@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
-import CreateAnimal from './Crud/CreateAnimal'
-import UpdateAnimal from './Crud/UpdateAnimal';
-import DeleteAnimal from './Crud/DeleteAnimal';
+import CreateAnimal from './Crud/CreateAnimal';
 import ReadAnimal from './Crud/ReadAnimal';
 import Login from './Login';
 import Register from './Register';
@@ -14,6 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       idCounter: 6,
+      userIdCounter: 3,
       cuteAnimals:
         [
           {
@@ -56,6 +55,26 @@ class App extends React.Component {
 
         ],
       editAnimalName: "",
+      users: [
+        {
+          id: 0,
+          username: "Sara",
+          password: "sara",
+          tel: ""
+        },
+        {
+          id: 1,
+          username: "Chris",
+          password: "chris",
+          tel: ""
+        },
+        {
+          id: 2,
+          username: "Shelby",
+          password: "shelby",
+          tel: ""
+        }
+      ]
     }
   }
 
@@ -79,6 +98,33 @@ class App extends React.Component {
       cuteAnimals: newAnimalList,
       idCounter: this.state.idCounter + 1,
     });
+  }
+
+  addNewUser = (e, newUser) => {
+    e.preventDefault();
+    let isUniqueName = this.state.users.find((user) => {
+      if (user.username === newUser.username) {
+        alert("username taken");
+        return false;
+      } else {
+        return user;
+      }
+    })
+
+    if(isUniqueName) {
+      let newUserArr = this.state.users.slice();
+
+      newUserArr.push(
+        {
+          ...newUser,
+          id: this.state.userIdCounter,
+        });
+      this.setState({
+        users: newUserArr,
+        userIdCounter: this.state.userIdCounter + 1,
+      })
+      alert("account created!")
+    }
   }
 
   handleChangeEdit = (e) => {
@@ -143,37 +189,46 @@ class App extends React.Component {
 
     return (
 
-        <Switch>
-          <Route
-            exact path="/"
-            render={props => 
+      <Switch>
+        <Route
+          exact path="/"
+          render={props =>
             <div>
-            <ReadAnimal  
-              cuteAnimals={this.state.cuteAnimals}
-              handleClick={this.handleClick.bind(this)}
-              handleUpdate={this.handleUpdate.bind(this)}
-              handleChangeEdit={this.handleChangeEdit.bind(this)}
-              handleEdit={this.handleEdit.bind(this)}
-            />
-            <CreateAnimal
-              newAnimal={this.state.newAnimal}
-              addNewAnimal={this.addNewAnimal.bind(this)}
-              handleSubmit={this.handleSubmit.bind(this)}
-              handleClick={this.handleClick.bind(this)}
-            />
+              <ReadAnimal
+                cuteAnimals={this.state.cuteAnimals}
+                handleClick={this.handleClick.bind(this)}
+                handleUpdate={this.handleUpdate.bind(this)}
+                handleChangeEdit={this.handleChangeEdit.bind(this)}
+                handleEdit={this.handleEdit.bind(this)}
+              />
+              <CreateAnimal
+                newAnimal={this.state.newAnimal}
+                addNewAnimal={this.addNewAnimal.bind(this)}
+                handleSubmit={this.handleSubmit.bind(this)}
+                handleClick={this.handleClick.bind(this)}
+              />
             </div>
           }
-          />
-          <Route
-            path="/login" component={Login}
-          />
-          <Route
-            path="/register" component={Register}
-          />
+        />
+        <Route
+          path="/login" render={props =>
+            <Login
+              users={this.state.users}
+            />
+          }
+        />
+        <Route
+          path="/register" render={props =>
+            <Register
+              users={this.state.users}
+              addNewUser={this.addNewUser.bind(this)}
+            />
+          }
+        />
 
-        </Switch>
+      </Switch>
 
-      
+
     );
   }
 }
