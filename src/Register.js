@@ -8,6 +8,7 @@ render(){
 
 return(
   <form>
+    <br/>
       <label>Username
         <input type="text" name="name" placeholder="username"/>
       </label>
@@ -19,12 +20,12 @@ return(
       <br/>
       <label>
         Phone Number
-      <input type="tel" placeholder="Phone Number"/>
+      <input type="tel" name="tel" placeholder="Phone Number"/>
       </label>
       <br/>
       <button type="submit">Submit</button>
       <br/>
-      <Link to="/login">Login</Link>
+      <Link to="/login">Go to Login</Link>
     </form> 
   )
 }

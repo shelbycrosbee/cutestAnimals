@@ -6,7 +6,7 @@ import DeleteAnimal from './Crud/DeleteAnimal';
 import ReadAnimal from './Crud/ReadAnimal';
 import Login from './Login';
 import Register from './Register';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, withRouter } from 'react-router-dom';
 
 
 class App extends React.Component {
@@ -145,7 +145,7 @@ class App extends React.Component {
 
         <Switch>
           <Route
-            exact path="/home"
+            exact path="/"
             render={props => 
             <div>
             <ReadAnimal  
