@@ -3,7 +3,9 @@ import './App.css';
 import CreateAnimal from './Crud/CreateAnimal'
 import UpdateAnimal from './Crud/UpdateAnimal';
 import DeleteAnimal from './Crud/DeleteAnimal';
-// import { Route, Switch } from 'react-router-dom'
+import ReadAnimal from './Crud/ReadAnimal';
+import Login from './Login';
+import { Route, Switch } from 'react-router-dom';
 
 
 class App extends React.Component {
@@ -135,46 +137,52 @@ class App extends React.Component {
   };
 
   render() {
-    
-    const cuteAnimals = this.state.cuteAnimals.map((animal) =>
-      <li key={animal.id}>
-        {animal.name}
 
-        <DeleteAnimal
-          handleClick={this.handleClick.bind(this)}
-          animalsId={animal.id}
-        />
 
-        <UpdateAnimal
-          handleEdit={this.handleEdit.bind(this)}
-          handleChangeEdit={this.handleChangeEdit.bind(this)}
-          handleUpdate={this.handleUpdate.bind(this)}
-          animalsId={animal.id}
-          animalEdit={animal.edit}
-          animalName={animal.name}
-        />
 
-        <ul>
-          <li>
-            {animal.funFact}
-          </li>
-        </ul>
-      </li>
-    );
     return (
-      <div>
-        <ul>{cuteAnimals}</ul>
 
-        <CreateAnimal
-          newAnimal={this.state.newAnimal}
-          addNewAnimal={this.addNewAnimal.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-          handleClick={this.handleClick.bind(this)}
-        />
+        <Switch>
+          <Route
+            exact path="/home"
+            render={props => 
+            <div>
+            <ReadAnimal  
+              cuteAnimals={this.state.cuteAnimals}
+              handleClick={this.handleClick.bind(this)}
+              handleUpdate={this.handleUpdate.bind(this)}
+              handleChangeEdit={this.handleChangeEdit.bind(this)}
+              handleEdit={this.handleEdit.bind(this)}
+            />
+            <CreateAnimal
+              newAnimal={this.state.newAnimal}
+              addNewAnimal={this.addNewAnimal.bind(this)}
+              handleSubmit={this.handleSubmit.bind(this)}
+              handleClick={this.handleClick.bind(this)}
+            />
+            </div>
+          }
+          />
+          <Route
+            path="/login" component={Login}
+          />
+          
 
-      </div>
+        </Switch>
+
+      
     );
   }
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
