@@ -5,7 +5,8 @@ import UpdateAnimal from './Crud/UpdateAnimal';
 import DeleteAnimal from './Crud/DeleteAnimal';
 import ReadAnimal from './Crud/ReadAnimal';
 import Login from './Login';
-import { Route, Switch } from 'react-router-dom';
+import Register from './Register';
+import { Route, Switch, Link } from 'react-router-dom';
 
 
 class App extends React.Component {
@@ -166,7 +167,9 @@ class App extends React.Component {
           <Route
             path="/login" component={Login}
           />
-          
+          <Route
+            path="/register" component={Register}
+          />
 
         </Switch>
 
