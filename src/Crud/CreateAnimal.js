@@ -1,4 +1,8 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 
 class CreateAnimal extends React.Component {
   constructor(props) {
@@ -30,24 +34,22 @@ addNewFact = newFact => this.setState(
 
   render() {
     return (
-      <form>
-        <label>
-          Another Animal and Fun Fact:
-  <input
+      <form style={{marginLeft: "2em"}}>
+       <label> Add New</label>
+  <TextField
             name="name"
             type="text"
             onChange={e => this.addNewName(e.target.value)}
             placeholder="animal" />
-        </label>
-        <label>
+       
 
-  <input
+  <TextField
             name="funFact"
             type="text"
             onChange={e => this.addNewFact(e.target.value)}
             placeholder="fun fact" />
-        </label>
-        <button onClick={e => this.props.addNewAnimal(e, this.state.newAnimal)} className='buttonColor'> ADD </button>
+        
+        <Button onClick={e => this.props.addNewAnimal(e, this.state.newAnimal)} className='buttonColor'> ADD </Button>
       </form>);
   }
 }

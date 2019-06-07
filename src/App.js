@@ -5,7 +5,7 @@ import ReadAnimal from './Crud/ReadAnimal';
 import Login from './Login';
 import Register from './Register';
 import { Route, Switch, Link, withRouter } from 'react-router-dom';
-
+import NavBar from './NavBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -78,6 +78,8 @@ class App extends React.Component {
     }
   }
 
+
+
   handleClick = (e, animalId) => {
     let newCuteAnimals = this.state.cuteAnimals.filter((animal) => animal.id !== animalId)
     this.setState({
@@ -102,6 +104,7 @@ class App extends React.Component {
 
   addNewUser = (e, newUser) => {
     e.preventDefault();
+
     let isUniqueName = this.state.users.find((user) => {
       if (user.username === newUser.username) {
         alert("username taken");
@@ -110,7 +113,7 @@ class App extends React.Component {
         return user;
       }
     })
-
+    
     if(isUniqueName) {
       let newUserArr = this.state.users.slice();
 
@@ -191,10 +194,12 @@ class App extends React.Component {
     return (
 
       <Switch>
+        
         <Route
           exact path="/"
           render={props =>
             <div>
+              <NavBar />
               <ReadAnimal
                 cuteAnimals={this.state.cuteAnimals}
                 handleClick={this.handleClick.bind(this)}

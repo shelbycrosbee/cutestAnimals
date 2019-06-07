@@ -4,6 +4,7 @@ import DeleteAnimal from './DeleteAnimal';
 
 
 
+
 class ReadAnimal extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class ReadAnimal extends React.Component {
 
   render() {
     const cuteAnimals = this.props.cuteAnimals.map((animal) =>
-      <li key={animal.id}>
+      <li key={animal.id} className="font">
         {animal.name}
 
         <DeleteAnimal
@@ -28,8 +29,8 @@ class ReadAnimal extends React.Component {
           animalEdit={animal.edit}
           animalName={animal.name}
         />
-        <ul>
-          <li>
+       <ul>
+          <li className="font">
             {animal.funFact}
           </li>
         </ul>
