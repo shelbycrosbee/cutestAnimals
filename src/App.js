@@ -102,16 +102,16 @@ class App extends React.Component {
 
   addNewUser = (e, newUser) => {
     e.preventDefault();
-    let isUniqueName = this.state.users.find((user) => {
-      if (user.username === newUser.username) {
-        alert("username taken");
-        return false;
-      } else {
-        return user;
-      }
-    })
+    // let isUniqueName = this.state.users.find((user) => {
+    //   if (user.username === newUser.username) {
+    //     alert("username taken");
+    //     return false;
+    //   } else {
+    //     return user;
+    //   }
+    // })
 
-    if(isUniqueName) {
+    // if(isUniqueName) {
       let newUserArr = this.state.users.slice();
 
       newUserArr.push(
@@ -125,7 +125,7 @@ class App extends React.Component {
       })
       alert("account created!")
       this.props.history.push("/")
-    }
+    // }
   }
 
   handleChangeEdit = (e) => {
