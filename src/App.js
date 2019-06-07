@@ -124,6 +124,7 @@ class App extends React.Component {
         userIdCounter: this.state.userIdCounter + 1,
       })
       alert("account created!")
+      this.props.history.push("/")
     }
   }
 
@@ -233,7 +234,7 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
 
 
 

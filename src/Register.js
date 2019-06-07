@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link, Router } from 'react-router-dom';
+import { Route, Switch, Link, Router, withRouter } from 'react-router-dom';
 
 
 class Register extends React.Component {
@@ -17,7 +17,7 @@ class Register extends React.Component {
         [e.target.name]: e.target.value
       }
     })
-
+    
   }
 
 
@@ -70,4 +70,4 @@ class Register extends React.Component {
 }
 
 
-export default Register
+export default withRouter(Register)
