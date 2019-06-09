@@ -32,6 +32,7 @@ class ReadAnimal extends React.Component {
           <li>
             {animal.fun_fact}
           </li>
+          <li>{animal.location.name}</li>
         </ul>
       </li >
     );

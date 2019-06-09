@@ -80,17 +80,13 @@ class App extends React.Component {
     axios.post('/animals', {
       name: newAnimal.name,
       fun_fact: newAnimal.funFact,
-      location: newAnimal.location
+      // location_id: newAnimal.location
 
     })
       .then(
         response => {
           this.setState({
             cuteAnimals: response.data,
-            newAnimal: {
-              name: "",
-              funFact: ""
-            }
           })
         }
       )

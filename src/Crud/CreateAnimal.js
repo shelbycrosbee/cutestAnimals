@@ -6,7 +6,8 @@ class CreateAnimal extends React.Component {
     this.state = {
       newAnimal: {
         name: "",
-        funFact: ""
+        funFact: "",
+        location: ""
       }
     }
   }
@@ -27,16 +28,17 @@ class CreateAnimal extends React.Component {
       }
     }
   )
+ 
 
-handleClear(e, animalName){
-  this.setState({
-    newAnimal: {
-      name: "",
-      funFact: ""
-    }
-  })
-  this.props.addNewAnimal(e, animalName)
-}
+  handleClear(e, animalName) {
+    this.setState({
+      newAnimal: {
+        name: "",
+        funFact: ""
+      }
+    })
+    this.props.addNewAnimal(e, animalName)
+  }
 
   render() {
     return (
@@ -47,7 +49,9 @@ handleClear(e, animalName){
             name="name"
             type="text"
             onChange={e => this.addNewName(e.target.value)}
-            placeholder="animal" />
+            placeholder="animal"
+            value={this.state.newAnimal.name}
+          />
         </label>
         <label>
 
@@ -55,7 +59,10 @@ handleClear(e, animalName){
             name="funFact"
             type="text"
             onChange={e => this.addNewFact(e.target.value)}
-            placeholder="fun fact" />
+            placeholder="fun fact"
+            value={this.state.newAnimal.funFact}
+          />
+        
         </label>
         <button onClick={e => this.handleClear(e, this.state.newAnimal)} className='buttonColor'> ADD </button>
       </form>);
