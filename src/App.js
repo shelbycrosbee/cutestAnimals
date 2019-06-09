@@ -130,24 +130,10 @@ class App extends React.Component {
   }
 
   handleChangeEdit = (e, animalsId) => {
-    // this.setState({
-    //   [e.target.name]: e.target.value
-    // })
-    e.preventDefault();
-    axios.put(`/animals/${animalsId}`, {
-      name: this.state.editAnimalName,
-      
+    this.setState({
+      [e.target.name]: e.target.value
     })
-      .then(
-        response => {
-          this.setState({
-            cuteAnimals: response.data,
-          })
-        }
-      )
-      .catch(function (error) {
-        console.log(error);
-      })
+   
     
   }
 
@@ -184,22 +170,22 @@ class App extends React.Component {
 
   handleUpdate = (e, animalId) => {
     e.preventDefault();
-    let newAnimals = this.state.cuteAnimals.map(animal => {
-      if (animal.id === animalId) {
-        return {
-          ...animal,
-          name: this.state.editAnimalName,
-          edit: false
-        };
-      } else {
-        return {
-          ...animal
-        };
-      }
-    });
-    this.setState({
-      cuteAnimals: newAnimals
-    });
+    e.preventDefault();
+    axios.put(`/animals/${animalId}`, {
+      name: this.state.editAnimalName,
+      
+    })
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data,
+          })
+        }
+      )
+      .catch(function (error) {
+        console.log(error);
+      })
+    
   };
 
   render() {

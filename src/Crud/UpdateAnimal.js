@@ -10,10 +10,10 @@ class UpdateAnimal extends React.Component {
     return (
       <span>
         <button
-          onClick={(e) => this.props.handleEdit(e, this.props.animalsId)}>EDIT</button>
+          onClick={(e) => this.props.handleEdit(e, this.props.animalId)}>EDIT</button>
 
         {this.props.animalEdit ? (
-          <form onSubmit={e => this.props.handleUpdate(e, this.props.animalsId)}>
+          <form onSubmit={e => this.props.handleUpdate(e, this.props.animalId)}>
             <input
               type="text"
               value={this.props.editAnimalName}

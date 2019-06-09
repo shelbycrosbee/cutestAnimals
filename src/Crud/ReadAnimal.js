@@ -24,7 +24,7 @@ class ReadAnimal extends React.Component {
           handleEdit={this.props.handleEdit.bind(this)}
           handleChangeEdit={this.props.handleChangeEdit.bind(this)}
           handleUpdate={this.props.handleUpdate.bind(this)}
-          animalsId={animal.id}
+          animalId={animal.id}
           animalEdit={animal.edit}
           animalName={animal.name}
         />
