@@ -80,7 +80,7 @@ class App extends React.Component {
     axios.post('/animals', {
       name: newAnimal.name,
       fun_fact: newAnimal.funFact,
-      // location_id: newAnimal.location
+      location_id: parseInt(newAnimal.location)
 
     })
       .then(
@@ -90,6 +90,9 @@ class App extends React.Component {
           })
         }
       )
+      // animals: parseInt(this.state.animal)
+      // //   }) .then(response => {
+      // //     this.setState({
       .catch(function (error) {
         console.log(error);
       })

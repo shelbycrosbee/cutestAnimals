@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios'
 class CreateAnimal extends React.Component {
   constructor(props) {
     super(props)
@@ -7,11 +7,34 @@ class CreateAnimal extends React.Component {
       newAnimal: {
         name: "",
         funFact: "",
-        location: ""
-      }
+        location: 1
+      },
+      locations: []
     }
   }
+  // handleSubmit(e) {
+  //   e.preventDefault()
+  //   axios.post("/animals", {
+  //     name: this.state.name,
+  //     loc:
+  //     fun:
+  //     animals: parseInt(this.state.animal)
+  //   }) .then(response => {
+  //     this.setState({
+  
+  //     })
+  //   })
+  componentDidMount() {
+    axios.get('/locations')
 
+      .then(response => {
+
+        this.setState({ locations: response.data })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
   addNewName = newName => this.setState(
     {
       newAnimal: {
@@ -28,19 +51,29 @@ class CreateAnimal extends React.Component {
       }
     }
   )
- 
+  addNewLocation = newLocation => this.setState(
+    {
+      newAnimal: {
+        ...this.state.newAnimal,
+        location: newLocation
+      }
+    }
+  )
 
-  handleClear(e, animalName) {
+  handleClear(e, animal) {
     this.setState({
       newAnimal: {
         name: "",
-        funFact: ""
+        funFact: "",
+        location: 1
       }
     })
-    this.props.addNewAnimal(e, animalName)
+    this.props.addNewAnimal(e, animal)
   }
 
   render() {
+    const locations = this.state.locations.map((location) => <option key={location.id} value={location.id}>{location.name}</option>)
+
     return (
       <form>
         <label>
@@ -62,7 +95,9 @@ class CreateAnimal extends React.Component {
             placeholder="fun fact"
             value={this.state.newAnimal.funFact}
           />
-        
+          <select onChange={e => this.addNewLocation(e.target.value)}>
+            {locations}
+          </select>
         </label>
         <button onClick={e => this.handleClear(e, this.state.newAnimal)} className='buttonColor'> ADD </button>
       </form>);
