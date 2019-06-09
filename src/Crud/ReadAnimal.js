@@ -30,7 +30,7 @@ class ReadAnimal extends React.Component {
         />
         <ul>
           <li>
-            {animal.funFact}
+            {animal.fun_fact}
           </li>
         </ul>
       </li >

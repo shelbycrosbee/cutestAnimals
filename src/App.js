@@ -16,43 +16,6 @@ class App extends React.Component {
       userIdCounter: 3,
       cuteAnimals:
         [
-          // {
-          //   id: 0,
-          //   cutenessLevel: "Very",
-          //   name: "Ducklings",
-          //   funFact: "Ducks are omnivores",
-
-          // },
-          // {
-          //   id: 1,
-          //   cutenessLevel: "Extremely",
-          //   name: "Puppies",
-          //   funFact: "Three dogs (from First Class cabins!) survived the sinking of the Titanic – two Pomeranians and one Pekingese.",
-          // },
-          // {
-          //   id: 2,
-          //   cutenessLevel: "Pretty cute",
-          //   name: "Giraffes",
-          //   funFact: "Giraffes spend 16-20 hours a day feeding",
-          // },
-          // {
-          //   id: 3,
-          //   cutenessLevel: "Super",
-          //   name: "Sea Otters",
-          //   funFact: "Sea otters wrap their babies around giant kelp",
-          // },
-          // {
-          //   id: 4,
-          //   cutenessLevel: "Homely",
-          //   name: "Condors",
-          //   funFact: "Males mate for life, females find other mates when the males die",
-          // },
-          // {
-          //   id: 5,
-          //   cutenessLevel: "Super Duper",
-          //   name: "Pandas",
-          //   funFact: "An adult panda can eat 12-38 kilos of bamboo per day"
-          // }
 
         ],
       editAnimalName: "",
@@ -80,27 +43,41 @@ class App extends React.Component {
   }
   componentDidMount() {
     axios.get('/animals')
-    
-    .then(response => {
-      let animals = response.data.map((animal, i) => {
-        return {
-          id: i,
-          name: `${animal.name}`,
-          funFact: `${animal.fun_fact}`
-        }
-      })
-      
-      this.setState({ cuteAnimals : animals, idCounter: this.state.cuteAnimals.length })
+
+      .then(response => {
+        // let animals = response.data.map((animal, i) => {
+        //   return {
+        //     id: `${animal.id}`,
+        //     name: `${animal.name}`,
+        //     funFact: `${animal.fun_fact}`
+        //   }
+        //})
+
+        this.setState({ cuteAnimals: response.data, idCounter: this.state.cuteAnimals.length })
       })
       .catch(function (error) {
         console.log(error);
       })
   }
+
+
   handleClick = (e, animalId) => {
-    let newCuteAnimals = this.state.cuteAnimals.filter((animal) => animal.id !== animalId)
-    this.setState({
-      cuteAnimals: newCuteAnimals
-    });
+    // let newCuteAnimals = this.state.cuteAnimals.filter((animal) => animal.id !== animalId)
+    // this.setState({
+    //   cuteAnimals: newCuteAnimals
+    // });
+
+    axios.delete(`/animals/${animalId}`)
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data
+          });
+        })
+      .catch(function (error) {
+        console.log(error);
+      })
+
   }
 
   addNewAnimal = (e, newAnimal) => {
@@ -130,19 +107,19 @@ class App extends React.Component {
     // })
 
     // if(isUniqueName) {
-      let newUserArr = this.state.users.slice();
+    let newUserArr = this.state.users.slice();
 
-      newUserArr.push(
-        {
-          ...newUser,
-          id: this.state.userIdCounter,
-        });
-      this.setState({
-        users: newUserArr,
-        userIdCounter: this.state.userIdCounter + 1,
-      })
-      alert("account created!")
-      this.props.history.push("/")
+    newUserArr.push(
+      {
+        ...newUser,
+        id: this.state.userIdCounter,
+      });
+    this.setState({
+      users: newUserArr,
+      userIdCounter: this.state.userIdCounter + 1,
+    })
+    alert("account created!")
+    this.props.history.push("/")
     // }
   }
 
