@@ -80,8 +80,11 @@ class App extends React.Component {
       .then(
         response => {
           this.setState({
-            cuteAnimals: response.data
-
+            cuteAnimals: response.data,
+            newAnimal: {
+              name: "",
+              funFact: ""
+            }
           })
         }
       )
