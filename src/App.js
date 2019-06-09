@@ -45,13 +45,6 @@ class App extends React.Component {
     axios.get('/animals')
 
       .then(response => {
-        // let animals = response.data.map((animal, i) => {
-        //   return {
-        //     id: `${animal.id}`,
-        //     name: `${animal.name}`,
-        //     funFact: `${animal.fun_fact}`
-        //   }
-        //})
 
         this.setState({ cuteAnimals: response.data, idCounter: this.state.cuteAnimals.length })
       })
@@ -62,10 +55,6 @@ class App extends React.Component {
 
 
   handleClick = (e, animalId) => {
-    // let newCuteAnimals = this.state.cuteAnimals.filter((animal) => animal.id !== animalId)
-    // this.setState({
-    //   cuteAnimals: newCuteAnimals
-    // });
 
     axios.delete(`/animals/${animalId}`)
       .then(
@@ -82,17 +71,25 @@ class App extends React.Component {
 
   addNewAnimal = (e, newAnimal) => {
     e.preventDefault();
-    let newAnimalList = this.state.cuteAnimals.slice();
-    newAnimalList.push(
-      {
-        ...newAnimal,
-        id: this.state.idCounter,
-      }
-    )
-    this.setState({
-      cuteAnimals: newAnimalList,
-      idCounter: this.state.idCounter + 1,
-    });
+    axios.post('/animals', {
+      name: newAnimal.name,
+      fun_fact: newAnimal.funFact,
+      location: newAnimal.location
+
+    })
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data
+
+          })
+        }
+      )
+      .catch(function (error) {
+        console.log(error);
+      })
+
+
   }
 
   addNewUser = (e, newUser) => {
