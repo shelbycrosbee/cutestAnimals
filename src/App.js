@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 import CreateAnimal from './Crud/CreateAnimal';
 import ReadAnimal from './Crud/ReadAnimal';
@@ -15,43 +16,43 @@ class App extends React.Component {
       userIdCounter: 3,
       cuteAnimals:
         [
-          {
-            id: 0,
-            cutenessLevel: "Very",
-            name: "Ducklings",
-            funFact: "Ducks are omnivores",
+          // {
+          //   id: 0,
+          //   cutenessLevel: "Very",
+          //   name: "Ducklings",
+          //   funFact: "Ducks are omnivores",
 
-          },
-          {
-            id: 1,
-            cutenessLevel: "Extremely",
-            name: "Puppies",
-            funFact: "Three dogs (from First Class cabins!) survived the sinking of the Titanic – two Pomeranians and one Pekingese.",
-          },
-          {
-            id: 2,
-            cutenessLevel: "Pretty cute",
-            name: "Giraffes",
-            funFact: "Giraffes spend 16-20 hours a day feeding",
-          },
-          {
-            id: 3,
-            cutenessLevel: "Super",
-            name: "Sea Otters",
-            funFact: "Sea otters wrap their babies around giant kelp",
-          },
-          {
-            id: 4,
-            cutenessLevel: "Homely",
-            name: "Condors",
-            funFact: "Males mate for life, females find other mates when the males die",
-          },
-          {
-            id: 5,
-            cutenessLevel: "Super Duper",
-            name: "Pandas",
-            funFact: "An adult panda can eat 12-38 kilos of bamboo per day"
-          }
+          // },
+          // {
+          //   id: 1,
+          //   cutenessLevel: "Extremely",
+          //   name: "Puppies",
+          //   funFact: "Three dogs (from First Class cabins!) survived the sinking of the Titanic – two Pomeranians and one Pekingese.",
+          // },
+          // {
+          //   id: 2,
+          //   cutenessLevel: "Pretty cute",
+          //   name: "Giraffes",
+          //   funFact: "Giraffes spend 16-20 hours a day feeding",
+          // },
+          // {
+          //   id: 3,
+          //   cutenessLevel: "Super",
+          //   name: "Sea Otters",
+          //   funFact: "Sea otters wrap their babies around giant kelp",
+          // },
+          // {
+          //   id: 4,
+          //   cutenessLevel: "Homely",
+          //   name: "Condors",
+          //   funFact: "Males mate for life, females find other mates when the males die",
+          // },
+          // {
+          //   id: 5,
+          //   cutenessLevel: "Super Duper",
+          //   name: "Pandas",
+          //   funFact: "An adult panda can eat 12-38 kilos of bamboo per day"
+          // }
 
         ],
       editAnimalName: "",
@@ -77,7 +78,24 @@ class App extends React.Component {
       ]
     }
   }
-
+  componentDidMount() {
+    axios.get('/animals')
+    
+    .then(response => {
+      let animals = response.data.map((animal, i) => {
+        return {
+          id: i,
+          name: `${animal.name}`,
+          funFact: `${animal.fun_fact}`
+        }
+      })
+      
+      this.setState({ cuteAnimals : animals, idCounter: this.state.cuteAnimals.length })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
   handleClick = (e, animalId) => {
     let newCuteAnimals = this.state.cuteAnimals.filter((animal) => animal.id !== animalId)
     this.setState({
@@ -144,6 +162,7 @@ class App extends React.Component {
 
     })
   }
+
 
   handleEdit = (e, animalId) => {
     let newAnimals = this.state.cuteAnimals.map(animal => {
