@@ -28,6 +28,16 @@ class CreateAnimal extends React.Component {
     }
   )
 
+handleClear(e, animalName){
+  this.setState({
+    newAnimal: {
+      name: "",
+      funFact: ""
+    }
+  })
+  this.props.addNewAnimal(e, animalName)
+}
+
   render() {
     return (
       <form>
@@ -47,7 +57,7 @@ class CreateAnimal extends React.Component {
             onChange={e => this.addNewFact(e.target.value)}
             placeholder="fun fact" />
         </label>
-        <button onClick={e => this.props.addNewAnimal(e, this.state.newAnimal)} className='buttonColor'> ADD </button>
+        <button onClick={e => this.handleClear(e, this.state.newAnimal)} className='buttonColor'> ADD </button>
       </form>);
   }
 }

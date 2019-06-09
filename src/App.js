@@ -7,7 +7,13 @@ import Login from './Login';
 import Register from './Register';
 import { Route, Switch, Link, withRouter } from 'react-router-dom';
 
-
+// https://gist.github.com/krambertech/76afec49d7508e89e028fce14894724c
+// handleKeyDown(e) {
+//   if (e.keyCode === ENTER_KEY) {
+//        clearTimeout(this.timer);
+//       ::this.triggerChange();
+//   }
+// }
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -123,10 +129,26 @@ class App extends React.Component {
     // }
   }
 
-  handleChangeEdit = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
+  handleChangeEdit = (e, animalsId) => {
+    // this.setState({
+    //   [e.target.name]: e.target.value
+    // })
+    e.preventDefault();
+    axios.put(`/animals/${animalsId}`, {
+      name: this.state.editAnimalName,
+      
     })
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data,
+          })
+        }
+      )
+      .catch(function (error) {
+        console.log(error);
+      })
+    
   }
 
   handleSubmit(e) {
