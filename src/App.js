@@ -102,16 +102,7 @@ class App extends React.Component {
 
   addNewUser = (e, newUser) => {
     e.preventDefault();
-    // let isUniqueName = this.state.users.find((user) => {
-    //   if (user.username === newUser.username) {
-    //     alert("username taken");
-    //     return false;
-    //   } else {
-    //     return user;
-    //   }
-    // })
-
-    // if(isUniqueName) {
+   
     let newUserArr = this.state.users.slice();
 
     newUserArr.push(
