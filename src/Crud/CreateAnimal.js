@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios'
 
 class CreateAnimal extends React.Component {
   constructor(props) {
@@ -10,9 +9,22 @@ class CreateAnimal extends React.Component {
     this.state = {
       newAnimal: {
         name: "",
-        funFact: ""
-      }
+        funFact: "",
+        location: 1
+      },
+      locations: []
     }
+  }
+  componentDidMount() {
+    axios.get('/locations')
+
+      .then(response => {
+
+        this.setState({ locations: response.data })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   addNewName = newName => this.setState(
@@ -31,8 +43,28 @@ class CreateAnimal extends React.Component {
       }
     }
   )
+  addNewLocation = newLocation => this.setState(
+    {
+      newAnimal: {
+        ...this.state.newAnimal,
+        location: newLocation
+      }
+    }
+  )
+  handleClear(e, animal) {
+    this.setState({
+      newAnimal: {
+        name: "",
+        funFact: "",
+        location: 1
+      }
+    })
+    this.props.addNewAnimal(e, animal)
+  }
 
   render() {
+    const locations = this.state.locations.map((location) => <option key={location.id} value={location.id}>{location.name}</option>)
+
     return (
       <form style={{ marginLeft: "2em" }}>
         <label> Add New</label>
@@ -40,16 +72,22 @@ class CreateAnimal extends React.Component {
           name="name"
           type="text"
           onChange={e => this.addNewName(e.target.value)}
-          placeholder="  animal" />
+          placeholder="  animal"
+          value={this.state.newAnimal.name}
+        />
 
 
         <TextField
           name="funFact"
           type="text"
           onChange={e => this.addNewFact(e.target.value)}
-          placeholder="fun fact" />
-
-        <Button onClick={e => this.props.addNewAnimal(e, this.state.newAnimal)} className='buttonColor'> ADD </Button>
+          placeholder="fun fact"
+          value={this.state.newAnimal.funFact}
+        />
+        <select onChange={e => this.addNewLocation(e.target.value)}>
+          {locations}
+        </select>
+        <Button onClick={e => this.handleClear(e, this.state.newAnimal)}> ADD </Button>
       </form>);
   }
 }

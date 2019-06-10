@@ -1,7 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
 class UpdateAnimal extends React.Component {
@@ -14,10 +12,10 @@ class UpdateAnimal extends React.Component {
     return (
       <span>
         <Button
-          onClick={(e) => this.props.handleEdit(e, this.props.animalsId)}>Edit</Button>
+          onClick={(e) => this.props.handleEdit(e, this.props.animalId)}>Edit</Button>
 
         {this.props.animalEdit ? (
-          <form onSubmit={e => this.props.handleUpdate(e, this.props.animalsId)}>
+          <form onSubmit={e => this.props.handleUpdate(e, this.props.animalId)}>
             <TextField
               id="outlined-name"
               value={this.props.editAnimalName}

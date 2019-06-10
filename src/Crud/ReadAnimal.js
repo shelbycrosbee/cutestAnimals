@@ -18,21 +18,22 @@ class ReadAnimal extends React.Component {
 
         <DeleteAnimal
           handleClick={this.props.handleClick.bind(this)}
-          animalsId={animal.id}
+          animalId={animal.id}
         />
 
         <UpdateAnimal
           handleEdit={this.props.handleEdit.bind(this)}
           handleChangeEdit={this.props.handleChangeEdit.bind(this)}
           handleUpdate={this.props.handleUpdate.bind(this)}
-          animalsId={animal.id}
+          animalId={animal.id}
           animalEdit={animal.edit}
           animalName={animal.name}
         />
        <ul>
           <li className="font">
-            {animal.funFact}
+            {animal.fun_fact}
           </li>
+          <li>{animal.location.name}</li>
         </ul>
       </li >
     );

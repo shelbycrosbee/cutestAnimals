@@ -6,6 +6,7 @@ import Login from './Login';
 import Register from './Register';
 import { Route, Switch, Link, withRouter } from 'react-router-dom';
 import NavBar from './NavBar';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,44 +16,7 @@ class App extends React.Component {
       userIdCounter: 3,
       cuteAnimals:
         [
-          {
-            id: 0,
-            cutenessLevel: "Very",
-            name: "Ducklings",
-            funFact: "Ducks are omnivores",
-
-          },
-          {
-            id: 1,
-            cutenessLevel: "Extremely",
-            name: "Puppies",
-            funFact: "Three dogs (from First Class cabins!) survived the sinking of the Titanic – two Pomeranians and one Pekingese.",
-          },
-          {
-            id: 2,
-            cutenessLevel: "Pretty cute",
-            name: "Giraffes",
-            funFact: "Giraffes spend 16-20 hours a day feeding",
-          },
-          {
-            id: 3,
-            cutenessLevel: "Super",
-            name: "Sea Otters",
-            funFact: "Sea otters wrap their babies around giant kelp",
-          },
-          {
-            id: 4,
-            cutenessLevel: "Homely",
-            name: "Condors",
-            funFact: "Males mate for life, females find other mates when the males die",
-          },
-          {
-            id: 5,
-            cutenessLevel: "Super Duper",
-            name: "Pandas",
-            funFact: "An adult panda can eat 12-38 kilos of bamboo per day"
-          }
-
+          
         ],
       editAnimalName: "",
       users: [
@@ -78,28 +42,51 @@ class App extends React.Component {
     }
   }
 
-
+componentDidMount(){
+  axios.get('/animals')
+  .then(response => {
+   
+    this.setState({ cuteAnimals: response.data, idCounter: this.state.cuteAnimals.length })
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+}
 
   handleClick = (e, animalId) => {
-    let newCuteAnimals = this.state.cuteAnimals.filter((animal) => animal.id !== animalId)
-    this.setState({
-      cuteAnimals: newCuteAnimals
-    });
+    axios.delete(`/animals/${animalId}`)
+    .then(
+      response => {
+        this.setState({
+          cuteAnimals: response.data
+        });
+      })
+    .catch(function (error) {
+      console.log(error);
+    })
   }
 
   addNewAnimal = (e, newAnimal) => {
     e.preventDefault();
-    let newAnimalList = this.state.cuteAnimals.slice();
-    newAnimalList.push(
-      {
-        ...newAnimal,
-        id: this.state.idCounter,
-      }
-    )
-    this.setState({
-      cuteAnimals: newAnimalList,
-      idCounter: this.state.idCounter + 1,
-    });
+    axios.post('/animals', {
+      name: newAnimal.name,
+      fun_fact: newAnimal.funFact,
+      location_id: parseInt(newAnimal.location)
+
+    })
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data
+
+          })
+        }
+      )
+      .catch(function (error) {
+        console.log(error);
+      })
+
+
   }
 
   addNewUser = (e, newUser) => {
@@ -169,24 +156,22 @@ class App extends React.Component {
 
   handleUpdate = (e, animalId) => {
     e.preventDefault();
-    let newAnimals = this.state.cuteAnimals.map(animal => {
-      if (animal.id === animalId) {
-        return {
-          ...animal,
-          name: this.state.editAnimalName,
-          edit: false
-        };
-      } else {
-        return {
-          ...animal
-        };
-      }
-    });
-    this.setState({
-      cuteAnimals: newAnimals
-    });
-  };
+    axios.put(`/animals/${animalId}`, {
+      name: this.state.editAnimalName,
 
+    })
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data,
+          })
+        }
+      )
+      .catch(function (error) {
+        console.log(error);
+      })
+
+    }
   render() {
 
 
