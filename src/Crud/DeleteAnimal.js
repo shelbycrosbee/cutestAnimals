@@ -9,7 +9,7 @@ class DeleteAnimal extends React.Component {
   render() {
 
     return (
-      <IconButton onClick={e => this.props.handleClick(e, this.props.animalsId)} className='buttonColor' aria-label="Delete">
+      <IconButton onClick={e => this.props.handleClick(e, this.props.animalId)} className='buttonColor' aria-label="Delete">
         <DeleteIcon />
       </IconButton>
     )
