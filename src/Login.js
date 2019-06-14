@@ -31,8 +31,6 @@ class Login extends React.Component {
     }
   }
 
-
-
   render() {
 
     return (
@@ -45,6 +43,7 @@ class Login extends React.Component {
             name="username"
             placeholder="username"
             onChange={e => this.handleChange(e)}
+            value = {this.state.username}
           />
         </label>
         <br />

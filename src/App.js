@@ -48,7 +48,11 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get('/animals')
+    axios.get('/animals', {
+      headers: {
+        authorization: 'Bearer 070f48225bb37ef29c2a487f2fb2a71dIXbWM7lYVEyQjMcCt4uh5WPqjGKAOgQMRLqDpPPfigCT85Ghd2oeC69lqgn04he9'
+      }
+    })
 
       .then(response => {
 
