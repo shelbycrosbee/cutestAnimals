@@ -47,6 +47,7 @@ class Login extends React.Component {
       <form
         onSubmit={this.props.handleLogin}
         className="font"
+        style={{ marginLeft: "2em" }}
       >
         <br />
         <h3 className="font">Enter User Information:</h3>

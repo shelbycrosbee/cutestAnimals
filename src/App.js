@@ -20,46 +20,12 @@ class App extends React.Component {
         ],
       editAnimalName: "",
       apiToken: ""
-      // users: [
-      //   {
-      //     id: 0,
-      //     username: "Sara",
-      //     password: "sara",
-      //     tel: ""
-      //   },
-      //   {
-      //     id: 1,
-      //     username: "Chris",
-      //     password: "chris",
-      //     tel: ""
-      //   },
-      //   {
-      //     id: 2,
-      //     username: "Shelby",
-      //     password: "shelby",
-      //     tel: ""
-      //   }
-      // ]
+   
     }
   }
 
   componentDidMount() {
-    // console.log("1");
-    /*axios.get('/animals', {
-      headers: {
-        authorization: this.state.apiToken
-
-      }
-    })
-      .then(response => {
-        console.log("2");
-        this.setState({ cuteAnimals: response.data, idCounter: this.state.cuteAnimals.length })
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-    // console.log("3");*/
-    this.props.history.push("/login")
+    // this.props.history.push("/login")
   }
 
   handleLogin = async (e) => {
@@ -80,6 +46,29 @@ class App extends React.Component {
       this.setState({ cuteAnimals: animalResponse.data, idCounter: this.state.cuteAnimals.length })
       this.props.history.push("/")
     }
+    catch (error) {
+      alert(error)
+    }
+
+  }
+
+  handleRegister = async (e) => {
+    try{
+      const response = await axios.post("/register", {
+        email: e.target.email.value,
+        username: e.target.username.value,
+        password: e.target.password.value
+      })
+      const animalResponse = await axios.get('/animals', {
+        headers: {
+          authorization: `Bearer ${response.data.token}`
+        }
+      })
+      this.setState({ cuteAnimals: animalResponse.data, idCounter: this.state.cuteAnimals.length })
+      this.props.history.push("/")
+    }
+
+    
     catch (error) {
       alert(error)
     }
@@ -122,34 +111,34 @@ class App extends React.Component {
 
   }
 
-  addNewUser = (e, newUser) => {
-    e.preventDefault();
+  // addNewUser = (e, newUser) => {
+  //   e.preventDefault();
 
-    let isUniqueName = this.state.users.find((user) => {
-      if (user.username === newUser.username) {
-        alert("username taken");
-        return false;
-      } else {
-        return user;
-      }
-    })
+  //   let isUniqueName = this.state.users.find((user) => {
+  //     if (user.username === newUser.username) {
+  //       alert("username taken");
+  //       return false;
+  //     } else {
+  //       return user;
+  //     }
+  //   })
 
-    if (isUniqueName) {
-      let newUserArr = this.state.users.slice();
+  //   if (isUniqueName) {
+  //     let newUserArr = this.state.users.slice();
 
-      newUserArr.push(
-        {
-          ...newUser,
-          id: this.state.userIdCounter,
-        });
-      this.setState({
-        users: newUserArr,
-        userIdCounter: this.state.userIdCounter + 1,
-      })
-      alert("account created!")
-      this.props.history.push("/")
-    }
-  }
+  //     newUserArr.push(
+  //       {
+  //         ...newUser,
+  //         id: this.state.userIdCounter,
+  //       });
+  //     this.setState({
+  //       users: newUserArr,
+  //       userIdCounter: this.state.userIdCounter + 1,
+  //     })
+  //     alert("account created!")
+  //     this.props.history.push("/")
+  //   }
+  // }
 
   handleChangeEdit = (e) => {
     this.setState({
@@ -246,7 +235,8 @@ class App extends React.Component {
           path="/register" render={props =>
             <Register
               users={this.state.users}
-              addNewUser={this.addNewUser.bind(this)}
+              handleRegister={this.handleRegister}
+              
             />
           }
         />

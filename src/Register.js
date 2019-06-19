@@ -35,7 +35,7 @@ class Register extends React.Component {
     return (
       <form
 
-        onSubmit={(e) => this.handleSubmit(e)}
+        onSubmit={this.props.handleRegister}
         style={{ marginLeft: "2em" }}
       >
         <br />
@@ -64,8 +64,8 @@ class Register extends React.Component {
 
         <TextField
           type="tel"
-          name="tel"
-          placeholder="Phone Number"
+          name="email"
+          placeholder="Email"
           onChange={e => this.handleChange(e)}
           variant="outlined"
         />
