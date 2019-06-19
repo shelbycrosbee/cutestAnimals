@@ -111,35 +111,7 @@ class App extends React.Component {
 
   }
 
-  // addNewUser = (e, newUser) => {
-  //   e.preventDefault();
-
-  //   let isUniqueName = this.state.users.find((user) => {
-  //     if (user.username === newUser.username) {
-  //       alert("username taken");
-  //       return false;
-  //     } else {
-  //       return user;
-  //     }
-  //   })
-
-  //   if (isUniqueName) {
-  //     let newUserArr = this.state.users.slice();
-
-  //     newUserArr.push(
-  //       {
-  //         ...newUser,
-  //         id: this.state.userIdCounter,
-  //       });
-  //     this.setState({
-  //       users: newUserArr,
-  //       userIdCounter: this.state.userIdCounter + 1,
-  //     })
-  //     alert("account created!")
-  //     this.props.history.push("/")
-  //   }
-  // }
-
+  
   handleChangeEdit = (e) => {
     this.setState({
       [e.target.name]: e.target.value
