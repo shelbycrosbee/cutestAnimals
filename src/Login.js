@@ -9,7 +9,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
     }
   }
@@ -27,15 +27,15 @@ class Login extends React.Component {
       if (user.username === this.state.username && user.password === this.state.password) {
         return user;
       }
-      });
-    if(user){
+    });
+    if (user) {
       this.props.history.push("/")
     } else {
       alert("user/pass does not exist")
     }
   }
 
-  handleRegister(e){
+  handleRegister(e) {
     e.preventDefault();
     this.props.history.push("/register")
   }
@@ -44,37 +44,39 @@ class Login extends React.Component {
 
     return (
 
-      <form style={{margin:'5em 17em 5em'}}
-        onSubmit={(e) => this.handleSubmit(e)}
+      <form
+        onSubmit={this.props.handleLogin}
         className="font"
-        >
+      >
         <br />
         <h3 className="font">Enter User Information:</h3>
         <TextField
-            type="text"
-            name="username"
-            placeholder="      username"
-            onChange={e => this.handleChange(e)}
-            variant="outlined"
-          />
-        <br/>
+          type="text"
+          name="email"
+          placeholder="      email"
+          onChange={e => this.handleChange(e)}
+          variant="outlined"
+          value={this.state.email}
+        />
         <br />
-      
+        <br />
+
         <TextField
-            type="password"
-            name="password"
-            placeholder="      password"
-            onChange={e => this.handleChange(e)}
-            variant="outlined"
-          />
-        
+          type="password"
+          name="password"
+          placeholder="      password"
+          onChange={e => this.handleChange(e)}
+          variant="outlined"
+          value={this.state.password}
+        />
+
         <br />
-        <br/>
+        <br />
         <Button type="submit">Login</Button>
         <br />
-        <Button 
-          onClick={e=>this.handleRegister(e)}
-          >Register</Button>
+        <Button
+          onClick={e => this.handleRegister(e)}
+        >Register</Button>
 
       </form>
 

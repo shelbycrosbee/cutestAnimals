@@ -16,54 +16,87 @@ class App extends React.Component {
       userIdCounter: 3,
       cuteAnimals:
         [
-          
+
         ],
       editAnimalName: "",
-      users: [
-        {
-          id: 0,
-          username: "Sara",
-          password: "sara",
-          tel: ""
-        },
-        {
-          id: 1,
-          username: "Chris",
-          password: "chris",
-          tel: ""
-        },
-        {
-          id: 2,
-          username: "Shelby",
-          password: "shelby",
-          tel: ""
-        }
-      ]
+      apiToken: ""
+      // users: [
+      //   {
+      //     id: 0,
+      //     username: "Sara",
+      //     password: "sara",
+      //     tel: ""
+      //   },
+      //   {
+      //     id: 1,
+      //     username: "Chris",
+      //     password: "chris",
+      //     tel: ""
+      //   },
+      //   {
+      //     id: 2,
+      //     username: "Shelby",
+      //     password: "shelby",
+      //     tel: ""
+      //   }
+      // ]
     }
   }
 
-componentDidMount(){
-  axios.get('/animals')
-  .then(response => {
-   
-    this.setState({ cuteAnimals: response.data, idCounter: this.state.cuteAnimals.length })
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-}
+  componentDidMount() {
+    // console.log("1");
+    /*axios.get('/animals', {
+      headers: {
+        authorization: this.state.apiToken
+
+      }
+    })
+      .then(response => {
+        console.log("2");
+        this.setState({ cuteAnimals: response.data, idCounter: this.state.cuteAnimals.length })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    // console.log("3");*/
+    this.props.history.push("/login")
+  }
+
+  handleLogin = async (e) => {
+    try {
+      e.preventDefault();
+
+      const response = await axios.post("/login", {
+        email: e.target.email.value,
+        password: e.target.password.value
+      })
+      this.setState({ apiToken: `Bearer ${response.data.token}` })
+      const animalResponse = await axios.get('/animals', {
+        headers: {
+          authorization: this.state.apiToken
+          // authorization: `Bearer ${response.data.token}`
+        }
+      })
+      this.setState({ cuteAnimals: animalResponse.data, idCounter: this.state.cuteAnimals.length })
+      this.props.history.push("/")
+    }
+    catch (error) {
+      alert(error)
+    }
+
+  }
 
   handleClick = (e, animalId) => {
     axios.delete(`/animals/${animalId}`)
-    .then(
-      response => {
-        this.setState({
-          cuteAnimals: response.data
-        });
+      .then(
+        response => {
+          this.setState({
+            cuteAnimals: response.data
+          });
+        })
+      .catch(function (error) {
+        console.log(error);
       })
-    .catch(function (error) {
-      console.log(error);
-    })
   }
 
   addNewAnimal = (e, newAnimal) => {
@@ -100,8 +133,8 @@ componentDidMount(){
         return user;
       }
     })
-    
-    if(isUniqueName) {
+
+    if (isUniqueName) {
       let newUserArr = this.state.users.slice();
 
       newUserArr.push(
@@ -171,7 +204,7 @@ componentDidMount(){
         console.log(error);
       })
 
-    }
+  }
   render() {
 
 
@@ -179,7 +212,7 @@ componentDidMount(){
     return (
 
       <Switch>
-        
+
         <Route
           exact path="/"
           render={props =>
@@ -205,6 +238,7 @@ componentDidMount(){
           path="/login" render={props =>
             <Login
               users={this.state.users}
+              handleLogin={(e) => this.handleLogin(e)}
             />
           }
         />
