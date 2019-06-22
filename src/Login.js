@@ -21,20 +21,6 @@ class Login extends React.Component {
   }
 
 
-  handleSubmit(e) {
-    e.preventDefault();
-    let user = this.props.users.find((user) => {
-      if (user.username === this.state.username && user.password === this.state.password) {
-        return user;
-      }
-    });
-    if (user) {
-      this.props.history.push("/")
-    } else {
-      alert("user/pass does not exist")
-    }
-  }
-
   handleRegister(e) {
     e.preventDefault();
     this.props.history.push("/register")

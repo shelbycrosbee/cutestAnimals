@@ -24,9 +24,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // this.props.history.push("/login")
-  }
+  // componentDidMount() {
+  //   //this.props.history.push("/login")
+  // }
 
   handleLogin = async (e) => {
     try {
@@ -36,11 +36,10 @@ class App extends React.Component {
         email: e.target.email.value,
         password: e.target.password.value
       })
-      this.setState({ apiToken: `Bearer ${response.data.token}` })
+      
       const animalResponse = await axios.get('/animals', {
         headers: {
-          authorization: this.state.apiToken
-          // authorization: `Bearer ${response.data.token}`
+          authorization: `Bearer ${response.data.token}`
         }
       })
       this.setState({ cuteAnimals: animalResponse.data, idCounter: this.state.cuteAnimals.length })
@@ -49,7 +48,6 @@ class App extends React.Component {
     catch (error) {
       alert(error)
     }
-
   }
 
   handleRegister = async (e) => {
@@ -67,8 +65,6 @@ class App extends React.Component {
       this.setState({ cuteAnimals: animalResponse.data, idCounter: this.state.cuteAnimals.length })
       this.props.history.push("/")
     }
-
-    
     catch (error) {
       alert(error)
     }
