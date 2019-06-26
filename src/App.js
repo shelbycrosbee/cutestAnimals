@@ -24,9 +24,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.props.history.push("/login")
-  }
+  // componentDidMount() {
+  //   this.props.history.push("/login")
+  // }
 
   handleLogin = async (e) => {
     try {
