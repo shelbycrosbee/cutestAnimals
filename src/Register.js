@@ -74,7 +74,6 @@ class Register extends React.Component {
         <br />
         <Button
           type="submit"
-          onClick={e => this.props.addNewUser(e, this.state.newUser)}
         >Submit</Button>
         <br />
         <Button onClick={e => this.handleGoToLogin(e)}>Go to Login</Button>

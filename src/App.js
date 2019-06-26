@@ -20,13 +20,13 @@ class App extends React.Component {
         ],
       editAnimalName: "",
       apiToken: ""
-   
+
     }
   }
 
-  // componentDidMount() {
-  //   //this.props.history.push("/login")
-  // }
+  componentDidMount() {
+    this.props.history.push("/login")
+  }
 
   handleLogin = async (e) => {
     try {
@@ -36,7 +36,7 @@ class App extends React.Component {
         email: e.target.email.value,
         password: e.target.password.value
       })
-      
+
       const animalResponse = await axios.get('/animals', {
         headers: {
           authorization: `Bearer ${response.data.token}`
@@ -51,15 +51,19 @@ class App extends React.Component {
   }
 
   handleRegister = async (e) => {
-    try{
+    try {
+      e.preventDefault();
+
+
       const response = await axios.post("/register", {
         email: e.target.email.value,
         username: e.target.username.value,
         password: e.target.password.value
       })
+
       const animalResponse = await axios.get('/animals', {
         headers: {
-          authorization: `Bearer ${response.data.token}`
+          authorization: `Bearer ${response.data[1].token}`
         }
       })
       this.setState({ cuteAnimals: animalResponse.data, idCounter: this.state.cuteAnimals.length })
@@ -107,7 +111,7 @@ class App extends React.Component {
 
   }
 
-  
+
   handleChangeEdit = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -204,7 +208,7 @@ class App extends React.Component {
             <Register
               users={this.state.users}
               handleRegister={this.handleRegister}
-              
+
             />
           }
         />
