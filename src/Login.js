@@ -1,8 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link, Router, withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
 class Login extends React.Component {
